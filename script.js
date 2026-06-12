@@ -243,14 +243,11 @@ clearInterval(timer);
 
 document.body.innerHTML = "<h2>Đang gửi dữ liệu...</h2>";
 
-fetch(GOOGLE_SCRIPT_URL,{
-method:"POST",
-headers:{
-"Content-Type":"application/json"
-},
+fetch(GOOGLE_SCRIPT_URL, {
+method: "POST",
 body: JSON.stringify({
-userId:userId,
-answers:answers
+userId: userId,
+answers: answers
 })
 })
 .then(() => {
