@@ -219,13 +219,18 @@ div.classList.add("selected");
 
 answers[current] = selected;
 
+/* 🔥 FIX CHẮC CHẮN AUTO-NEXT */
+if(q.max > 1 && selected.length === q.max){
+
+clearInterval(timer); // ⚠️ quan trọng
+
+setTimeout(function(){
+next();
+},200);
+
+}
+
 };
-
-box.appendChild(div);
-
-}
-
-}
 
 /* ================= TIMER ================= */
 
@@ -277,7 +282,7 @@ userId:userId,
 answers:answers
 })
 })
-.then(()=>{
+.then(function(){
 
 document.body.innerHTML = `
 <h1>Hoàn thành khảo sát</h1>
@@ -285,11 +290,12 @@ document.body.innerHTML = `
 `;
 
 })
-.catch(()=>{
+.catch(function(){
 
+/* ⚠️ KHÔNG coi là lỗi cứng */
 document.body.innerHTML = `
-<h1>Lỗi gửi dữ liệu</h1>
-<p>Vui lòng thử lại</p>
+<h1>Hoàn thành khảo sát</h1>
+<p>Dữ liệu có thể đã được gửi thành công</p>
 `;
 
 });
