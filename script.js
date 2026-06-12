@@ -7,169 +7,86 @@ let selectedMulti = [];
 
 const userId = crypto.randomUUID();
 
-/* ================= QUESTIONS ================= */
-
 const questions = [
 
-/* ===== CÂU 1–6 (ẢNH) ===== */
+/* ===== IMAGE 6 CÂU ===== */
 {
 type: "image",
 title: "Câu 1",
 time: 5,
-maxSelect: 1,
-images: [
-"images/1 (1).png",
-"images/1 (2).png",
-"images/1 (3).png"
-]
+images: ["images/1 (1).png","images/1 (2).png","images/1 (3).png"]
 },
 {
 type: "image",
 title: "Câu 2",
 time: 5,
-maxSelect: 1,
-images: [
-"images/2 (1).png",
-"images/2 (2).png",
-"images/2 (3).png"
-]
+images: ["images/2 (1).png","images/2 (2).png","images/2 (3).png"]
 },
 {
 type: "image",
 title: "Câu 3",
 time: 5,
-maxSelect: 1,
-images: [
-"images/3 (1).png",
-"images/3 (2).png",
-"images/3 (3).png"
-]
+images: ["images/3 (1).png","images/3 (2).png","images/3 (3).png"]
 },
 {
 type: "image",
 title: "Câu 4",
 time: 5,
-maxSelect: 1,
-images: [
-"images/4 (1).png",
-"images/4 (2).png",
-"images/4 (3).png"
-]
+images: ["images/4 (1).png","images/4 (2).png","images/4 (3).png"]
 },
 {
 type: "image",
 title: "Câu 5",
 time: 5,
-maxSelect: 1,
-images: [
-"images/5 (1).png",
-"images/5 (2).png",
-"images/5 (3).png"
-]
+images: ["images/5 (1).png","images/5 (2).png","images/5 (3).png"]
 },
 {
 type: "image",
 title: "Câu 6",
 time: 5,
-maxSelect: 1,
-images: [
-"images/6 (1).png",
-"images/6 (2).png",
-"images/6 (3).png"
-]
+images: ["images/6 (1).png","images/6 (2).png","images/6 (3).png"]
 },
 
 /* ===== CÂU 7 ===== */
 {
 type: "multi",
-title: "Câu 7: Chọn 3 thương hiệu bạn nhớ",
+title: "Câu 7 (chọn 3)",
 time: 15,
-maxSelect: 3,
-options: [
-"AK SPA & BEAUTY",
-"SPA TÂY THI",
-"PHƯƠNG THẢO SPA",
-"VÀNG BẠC XUÂN QUỲNH",
-"KHÁNH KIM LON VÀNG BẠC ĐÁ QUÝ",
-"KIM LONG DIỆP JEWELRY STORE LUXURY",
-"CARA CLUB",
-"LỆ QUÂN CLOTHING STORE & MORE",
-"KRIK TONY4MEN",
-"DAIKIN PROSHOP",
-"SHOWROOM ĐIỆN MÁY TOSHIBA",
-"NAGAKAWA ĐIỆN LẠNH GIA DỤNG",
-"7 ELEVEN",
-"WINMART +",
-"CIRCLE K",
-"KLEVER FRUITS",
-"CO.OP FOOD",
-"GS25"
-]
+max: 3,
+options: ["AK SPA & BEAUTY","SPA TÂY THI","PHƯƠNG THẢO SPA","7 ELEVEN","WINMART +","CIRCLE K"]
 },
 
 /* ===== CÂU 8 ===== */
 {
 type: "multi",
-title: "Câu 8: Chọn 2 điều bạn nhớ",
+title: "Câu 8 (chọn 2)",
 time: 10,
-maxSelect: 2,
-options: [
-"Màu sắc",
-"Logo",
-"Tên thương hiệu",
-"Kiểu biển hiệu",
-"Hình ảnh / biểu tượng"
-]
+max: 2,
+options: ["Màu sắc","Logo","Tên thương hiệu","Biển hiệu"]
 },
 
 /* ===== CÂU 9 ===== */
 {
 type: "multi",
-title: "Câu 9: Yếu tố nhận diện nhanh (chọn 2)",
+title: "Câu 9 (chọn 2)",
 time: 10,
-maxSelect: 2,
-options: [
-"Màu sắc nổi bật",
-"Logo dễ nhận biết",
-"Tên thương hiệu dễ đọc",
-"Biển hiệu lớn, rõ ràng",
-"Biểu tượng / hình ảnh đặc trưng"
-]
+max: 2,
+options: ["Màu sắc nổi bật","Logo dễ nhớ","Tên dễ đọc","Biển hiệu lớn"]
 },
 
 /* ===== CÂU 10 ===== */
 {
 type: "single",
-title: "Câu 10: Thương hiệu dễ nhận biết nhất",
+title: "Câu 10",
 time: 10,
-maxSelect: 1,
-options: [
-"AK SPA & BEAUTY",
-"SPA TÂY THI",
-"PHƯƠNG THẢO SPA",
-"VÀNG BẠC XUÂN QUỲNH",
-"KHÁNH KIM LON VÀNG BẠC ĐÁ QUÝ",
-"KIM LONG DIỆP JEWELRY STORE LUXURY",
-"CARA CLUB",
-"LỆ QUÂN CLOTHING STORE & MORE",
-"KRIK TONY4MEN",
-"DAIKIN PROSHOP",
-"SHOWROOM ĐIỆN MÁY TOSHIBA",
-"NAGAKAWA ĐIỆN LẠNH GIA DỤNG",
-"7 ELEVEN",
-"WINMART +",
-"CIRCLE K",
-"KLEVER FRUITS",
-"CO.OP FOOD",
-"GS25"
-]
+max: 1,
+options: ["AK SPA & BEAUTY","SPA TÂY THI","7 ELEVEN","WINMART +","CIRCLE K"]
 }
 
 ];
 
-/* ================= CORE ================= */
-
 function render(){
+
 if(current >= questions.length){
 submit();
 return;
@@ -184,47 +101,41 @@ box.innerHTML = "";
 
 selectedMulti = [];
 
-if(timer) clearInterval(timer);
+clearInterval(timer);
+
+/* RESET TIMER */
+startTimer(q);
 
 if(q.type === "image"){
-renderImages(q, box);
+renderImage(q, box);
 }else{
 renderOptions(q, box);
 }
 
-startTimer(q.time);
 }
 
-/* ================= IMAGE ================= */
+/* ===== IMAGE ===== */
+function renderImage(q, box){
 
-function renderImages(q, box){
-q.images.forEach((img, i)=>{
+q.images.forEach((src,i)=>{
 
 let div = document.createElement("div");
 div.className = "card";
 
-div.innerHTML = `<img src="${img}">`;
+div.innerHTML = `<img src="${src}">`;
 
 div.onclick = () => {
-
-answers[current] = i + 1;
-
-document.querySelectorAll(".card")
-.forEach(c => c.classList.remove("selected"));
-
-div.classList.add("selected");
-
-/* auto next */
-setTimeout(next, 300);
+answers[current] = i+1;
+next();
 };
 
 box.appendChild(div);
 
 });
+
 }
 
-/* ================= OPTIONS ================= */
-
+/* ===== OPTIONS ===== */
 function renderOptions(q, box){
 
 q.options.forEach(opt=>{
@@ -235,23 +146,17 @@ div.innerText = opt;
 
 div.onclick = () => {
 
-if(q.maxSelect === 1){
+if(q.max === 1){
 answers[current] = opt;
-
-document.querySelectorAll(".card")
-.forEach(c => c.classList.remove("selected"));
-
-div.classList.add("selected");
-
-setTimeout(next, 300);
+next();
 return;
 }
 
 if(selectedMulti.includes(opt)){
-selectedMulti = selectedMulti.filter(x => x !== opt);
+selectedMulti = selectedMulti.filter(x=>x!==opt);
 div.classList.remove("selected");
 }else{
-if(selectedMulti.length < q.maxSelect){
+if(selectedMulti.length < q.max){
 selectedMulti.push(opt);
 div.classList.add("selected");
 }
@@ -267,26 +172,20 @@ box.appendChild(div);
 
 }
 
-/* ================= TIMER ================= */
+/* ===== TIMER ===== */
+function startTimer(q){
 
-function startTimer(t){
+let t = q.time;
 
-let time = t;
-
-document.getElementById("timer").innerText = time;
+document.getElementById("timer").innerText = t;
 
 timer = setInterval(()=>{
 
-time--;
-document.getElementById("timer").innerText = time;
+t--;
+document.getElementById("timer").innerText = t;
 
-if(time <= 0){
+if(t <= 0){
 clearInterval(timer);
-
-if(!answers[current]){
-answers[current] = "NoAnswer";
-}
-
 next();
 }
 
@@ -294,33 +193,36 @@ next();
 
 }
 
-/* ================= NEXT ================= */
-
+/* ===== NEXT ===== */
 function next(){
+
 current++;
 render();
+
 }
 
-/* ================= SUBMIT ================= */
-
+/* ===== SUBMIT (FIX CHẮC CHẮN KHÔNG ĐỨNG) ===== */
 async function submit(){
 
-document.body.innerHTML = "<h1>Đang gửi dữ liệu...</h1>";
+document.body.innerHTML = "<h2>Đang gửi dữ liệu...</h2>";
+
+try{
 
 await fetch(GOOGLE_SCRIPT_URL,{
 method:"POST",
+mode:"no-cors",
 body: JSON.stringify({
 userId,
 answers
 })
 });
 
-document.body.innerHTML = `
-<h1>🎉 Cảm ơn bạn đã tham gia khảo sát!</h1>
-<p>Chúc bạn một ngày tốt lành.</p>
-`;
+}catch(e){
+console.log(e);
 }
 
-/* ================= START ================= */
+document.body.innerHTML = "<h1>Cảm ơn bạn đã tham gia khảo sát</h1>";
+
+}
 
 render();
