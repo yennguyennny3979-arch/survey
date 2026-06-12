@@ -33,61 +33,54 @@ images:[
 ];
 
 let currentQuestion = 0;
-
-function loadQuestion(){
-
-if(currentQuestion >= questions.length){
-
-document.body.innerHTML =
-"<h1>Cảm ơn bạn đã tham gia khảo sát!</h1>";
-
-return;
-}
-
-const q = questions[currentQuestion];
-
-document.querySelector("h1").innerText =
-`${q.title} (${currentQuestion + 1}/${questions.length})`;
-
-const images =
-document.querySelectorAll("img");
-
-q.images.forEach((url,index)=>{
-images[index].src = url;
-});
-
-startTimer();
-
-}
-
-function startTimer(){
-
 let time = 5;
+let interval;
 
-const timer =
-document.querySelector("h2");
+const title = document.querySelector("h1");
+const timer = document.querySelector("h2");
+const images = document.querySelectorAll("img");
 
-timer.innerText = "⏳ " + time;
+function showQuestion() {
 
-const interval =
-setInterval(()=>{
+    if(currentQuestion >= questions.length){
 
-time--;
+        document.body.innerHTML =
+        "<h1>Cảm ơn bạn đã tham gia khảo sát!</h1>";
 
-timer.innerText = "⏳ " + time;
+        return;
+    }
 
-if(time <= 0){
+    const q = questions[currentQuestion];
 
-clearInterval(interval);
+    title.innerText =
+    `${q.title} (${currentQuestion + 1}/${questions.length})`;
 
-currentQuestion++;
+    q.images.forEach((url,index)=>{
+        images[index].src = url;
+    });
 
-loadQuestion();
+    time = 5;
+
+    timer.innerText = "⏳ " + time;
+
+    clearInterval(interval);
+
+    interval = setInterval(()=>{
+
+        time--;
+
+        timer.innerText = "⏳ " + time;
+
+        if(time <= 0){
+
+            currentQuestion++;
+
+            showQuestion();
+
+        }
+
+    },1000);
 
 }
 
-},1000);
-
-}
-
-loadQuestion();
+showQuestion();
