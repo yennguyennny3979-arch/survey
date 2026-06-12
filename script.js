@@ -43,22 +43,20 @@ const images = document.querySelectorAll("img");
 
 function showQuestion() {
 
-    if(currentQuestion >= questions.length){
+if(currentQuestion >= questions.length){
 
-        document.body.innerHTML =
+    document.body.innerHTML =
 
-"<h1>Cảm ơn bạn đã tham gia khảo sát!</h1>" +
+    "<h1>Cảm ơn bạn đã tham gia khảo sát!</h1>" +
 
-"<p>" +
+    "<p>Đáp án: " +
 
-JSON.stringify(answers)
+    JSON.stringify(answers) +
 
-+
+    "</p>";
 
-"</p>";
-
-        return;
-    }
+    return;
+}
 
     const q = questions[currentQuestion];
 
@@ -71,20 +69,18 @@ JSON.stringify(answers)
 
     images[index].classList.remove("selected");
 
-    images[index].onclick = ()=>{
+images[index].onclick = ()=>{
 
-        images.forEach(img=>{
-            img.classList.remove("selected");
-        });
+    clearInterval(interval);
 
-        images[index].classList.add("selected");
+    answers[currentQuestion] =
+    index + 1;
 
-        answers[currentQuestion] =
-        index + 1;
+    currentQuestion++;
 
-        console.log(answers);
+    showQuestion();
 
-    };
+};
 
 });
 
