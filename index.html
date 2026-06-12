@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<title>Khảo sát</title>
+<title>Khảo sát nhận diện</title>
 
 <style>
 body{
@@ -14,15 +14,15 @@ body{
 
 #questionBox{
     font-size: 22px;
-    font-weight: 600;
+    font-weight: bold;
     margin-bottom: 10px;
     line-height: 1.5;
 }
 
 #timer{
     font-size: 36px;
-    font-weight: bold;
     text-align: center;
+    font-weight: bold;
     margin: 10px 0;
 }
 
@@ -37,6 +37,7 @@ body{
     padding: 10px;
     cursor: pointer;
     user-select: none;
+    transition: 0.2s;
 }
 
 .card img{
@@ -56,6 +57,7 @@ body{
 <div id="questionBox"></div>
 <div id="timer">0</div>
 <div id="answers" class="grid"></div>
+
 <script src="script.js"></script>
 
 </body>
