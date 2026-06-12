@@ -13,37 +13,37 @@ const questions = [
 /* ===== IMAGE 1–6 ===== */
 {
 type:"image",
-title:"Câu 1: Chọn 1 thương hiệu bạn nhận ra đầu tiên",
+title:"Câu 1: Chọn 1 hình ảnh thu hút bạn đầu tiên",
 time:5,
 images:["images/1 (1).png","images/1 (2).png","images/1 (3).png"]
 },
 {
 type:"image",
-title:"Câu 2: Chọn 1 thương hiệu bạn nhận ra đầu tiên",
+title:"Câu 2: Chọn 1 hình ảnh thu hút bạn đầu tiên",
 time:5,
 images:["images/2 (1).png","images/2 (2).png","images/2 (3).png"]
 },
 {
 type:"image",
-title:"Câu 3: Chọn 1 thương hiệu bạn nhận ra đầu tiên",
+title:"Câu 3: Chọn 1 hình ảnh thu hút bạn đầu tiên",
 time:5,
 images:["images/3 (1).png","images/3 (2).png","images/3 (3).png"]
 },
 {
 type:"image",
-title:"Câu 4: Chọn 1 thương hiệu bạn nhận ra đầu tiên",
+title:"Câu 4: Chọn 1 hình ảnh thu hút bạn đầu tiên",
 time:5,
 images:["images/4 (1).png","images/4 (2).png","images/4 (3).png"]
 },
 {
 type:"image",
-title:"Câu 5: Chọn 1 thương hiệu bạn nhận ra đầu tiên",
+title:"Câu 5: Chọn 1 hình ảnh thu hút bạn đầu tiên",
 time:5,
 images:["images/5 (1).png","images/5 (2).png","images/5 (3).png"]
 },
 {
 type:"image",
-title:"Câu 6: Chọn 1 thương hiệu bạn nhận ra đầu tiên",
+title:"Câu 6: Chọn 1 hình ảnh thu hút bạn đầu tiên",
 time:5,
 images:["images/6 (1).png","images/6 (2).png","images/6 (3).png"]
 },
