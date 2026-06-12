@@ -1,133 +1,284 @@
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/xxxxx/exec";
+
+const userId = crypto.randomUUID();
+
+let current = 0;
+let answers = [];
+
+let selectedMulti = [];
+
 const questions = [
 
+/* ========== CÂU 1-6 (ẢNH) ========== */
 {
-    title: "Câu 1",
-    images: [
-        "https://picsum.photos/300?1",
-        "https://picsum.photos/300?2",
-        "https://picsum.photos/300?3",
-        "https://picsum.photos/300?4"
-    ]
+type: "image",
+title: "Câu 1: Quan sát hình ảnh",
+time: 5,
+maxSelect: 1,
+images: [
+"images/1 (1).png",
+"images/1 (2).png",
+"images/1 (3).png"
+]
+},
+{
+type: "image",
+title: "Câu 2: Quan sát hình ảnh",
+time: 5,
+maxSelect: 1,
+images: [
+"images/2 (1).png",
+"images/2 (2).png",
+"images/2 (3).png"
+]
+},
+{
+type: "image",
+title: "Câu 3: Quan sát hình ảnh",
+time: 5,
+maxSelect: 1,
+images: [
+"images/3 (1).png",
+"images/3 (2).png",
+"images/3 (3).png"
+]
+},
+{
+type: "image",
+title: "Câu 4: Quan sát hình ảnh",
+time: 5,
+maxSelect: 1,
+images: [
+"images/4 (1).png",
+"images/4 (2).png",
+"images/4 (3).png"
+]
+},
+{
+type: "image",
+title: "Câu 5: Quan sát hình ảnh",
+time: 5,
+maxSelect: 1,
+images: [
+"images/5 (1).png",
+"images/5 (2).png",
+"images/5 (3).png"
+]
+},
+{
+type: "image",
+title: "Câu 6: Quan sát hình ảnh",
+time: 5,
+maxSelect: 1,
+images: [
+"images/6 (1).png",
+"images/6 (2).png",
+"images/6 (3).png"
+]
 },
 
+/* ========== CÂU 7 ========== */
 {
-    title: "Câu 2",
-    images: [
-        "https://picsum.photos/300?5",
-        "https://picsum.photos/300?6",
-        "https://picsum.photos/300?7",
-        "https://picsum.photos/300?8"
-    ]
+type: "multi",
+title: "Câu 7: Nhớ thương hiệu (chọn 3)",
+time: 15,
+maxSelect: 3,
+options: [
+"AK SPA & BEAUTY",
+"SPA TÂY THI",
+"PHƯƠNG THẢO SPA",
+"VÀNG BẠC XUÂN QUỲNH",
+"KHÁNH KIM LON VÀNG BẠC ĐÁ QUÝ",
+"KIM LONG DIỆP JEWELRY STORE LUXURY",
+"CARA CLUB",
+"LỆ QUÂN CLOTHING STORE & MORE",
+"KRIK TONY4MEN",
+"DAIKIN PROSHOP",
+"SHOWROOM ĐIỆN MÁY TOSHIBA",
+"NAGAKAWA ĐIỆN LẠNH GIA DỤNG",
+"7 ELEVEN",
+"WINMART +",
+"CIRCLE K",
+"KLEVER FRUITS",
+"CO.OP FOOD",
+"GS25"
+]
 },
 
+/* ========== CÂU 8 ========== */
 {
-    title: "Câu 3",
-    images: [
-        "https://picsum.photos/300?9",
-        "https://picsum.photos/300?10",
-        "https://picsum.photos/300?11",
-        "https://picsum.photos/300?12"
-    ]
+type: "multi",
+title: "Câu 8: Điều bạn nhớ nhất (chọn 2)",
+time: 10,
+maxSelect: 2,
+options: [
+"Màu sắc",
+"Logo",
+"Tên thương hiệu",
+"Kiểu biển hiệu",
+"Hình ảnh / biểu tượng"
+]
+},
+
+/* ========== CÂU 9 ========== */
+{
+type: "multi",
+title: "Câu 9: Yếu tố nhận diện nhanh (chọn 2)",
+time: 10,
+maxSelect: 2,
+options: [
+"Màu sắc nổi bật",
+"Logo dễ nhận biết",
+"Tên thương hiệu dễ đọc",
+"Biển hiệu lớn, rõ ràng",
+"Biểu tượng / hình ảnh đặc trưng"
+]
+},
+
+/* ========== CÂU 10 ========== */
+{
+type: "single",
+title: "Câu 10: Thương hiệu dễ nhận biết nhất",
+time: 10,
+maxSelect: 1,
+options: [
+"AK SPA & BEAUTY",
+"SPA TÂY THI",
+"PHƯƠNG THẢO SPA",
+"VÀNG BẠC XUÂN QUỲNH",
+"KHÁNH KIM LON VÀNG BẠC ĐÁ QUÝ",
+"KIM LONG DIỆP JEWELRY STORE LUXURY",
+"CARA CLUB",
+"LỆ QUÂN CLOTHING STORE & MORE",
+"KRIK TONY4MEN",
+"DAIKIN PROSHOP",
+"SHOWROOM ĐIỆN MÁY TOSHIBA",
+"NAGAKAWA ĐIỆN LẠNH GIA DỤNG",
+"7 ELEVEN",
+"WINMART +",
+"CIRCLE K",
+"KLEVER FRUITS",
+"CO.OP FOOD",
+"GS25"
+]
 }
 
 ];
 
-let currentQuestion = 0;
-let answers = [];
-let countdown = null;
+function renderQuestion(){
 
-const title = document.querySelector("h1");
-const timer = document.querySelector("h2");
-const images = document.querySelectorAll("img");
-
-function finishSurvey() {
-
-    clearInterval(countdown);
-
-    document.body.innerHTML = `
-        <h1>Cảm ơn bạn đã tham gia khảo sát!</h1>
-
-        <p>
-        Đáp án đã chọn:
-        </p>
-
-        <pre>
-${JSON.stringify(answers)}
-        </pre>
-    `;
+if(current >= questions.length){
+submit();
+return;
 }
 
-function nextQuestion() {
+let q = questions[current];
 
-    currentQuestion++;
+document.getElementById("questionTitle").innerText =
+q.title;
 
-    if(currentQuestion >= questions.length){
+let container = document.getElementById("answers");
+container.innerHTML = "";
 
-        finishSurvey();
+selectedMulti = [];
 
-        return;
-    }
+if(q.type === "image"){
+q.images.forEach((img, i)=>{
 
-    renderQuestion();
+let div = document.createElement("div");
+div.className = "card";
+
+div.innerHTML = `<img src="${img}">`;
+
+div.onclick = () => {
+answers[current] = i + 1;
+highlight(div);
+};
+
+container.appendChild(div);
+});
+
+}else{
+
+q.options.forEach((opt)=>{
+
+let div = document.createElement("div");
+div.className = "card";
+div.innerText = opt;
+
+div.onclick = () => {
+
+if(q.maxSelect === 1){
+answers[current] = opt;
+document.querySelectorAll(".card").forEach(c=>c.classList.remove("selected"));
+div.classList.add("selected");
+return;
 }
 
-function renderQuestion() {
+if(selectedMulti.includes(opt)){
+selectedMulti = selectedMulti.filter(x=>x !== opt);
+div.classList.remove("selected");
+}else{
+if(selectedMulti.length < q.maxSelect){
+selectedMulti.push(opt);
+div.classList.add("selected");
+}
+}
 
-    const q = questions[currentQuestion];
+answers[current] = selectedMulti;
+};
 
-    title.innerText =
-    `Câu ${currentQuestion + 1} / ${questions.length}`;
+container.appendChild(div);
 
-    q.images.forEach((url,index)=>{
+});
+}
 
-        images[index].src = url;
+startTimer(q.time);
+}
 
-        images[index].classList.remove("selected");
+function highlight(div){
+document.querySelectorAll(".card")
+.forEach(c=>c.classList.remove("selected"));
+div.classList.add("selected");
+}
 
-        images[index].onclick = ()=>{
+function startTimer(time){
 
-            clearInterval(countdown);
+let t = time;
+document.getElementById("timer").innerText = t;
 
-            images.forEach(img=>{
-                img.classList.remove("selected");
-            });
+let interval = setInterval(()=>{
 
-            images[index].classList.add("selected");
+t--;
+document.getElementById("timer").innerText = t;
 
-            answers[currentQuestion] = index + 1;
+if(t <= 0){
+clearInterval(interval);
 
-            setTimeout(()=>{
+if(!answers[current]){
+answers[current] = "NoAnswer";
+}
 
-                nextQuestion();
+current++;
+renderQuestion();
+}
 
-            },300);
+},1000);
+}
 
-        };
+async function submit(){
 
-    });
+await fetch(GOOGLE_SCRIPT_URL,{
+method:"POST",
+body: JSON.stringify({
+userId,
+answers
+})
+});
 
-    let time = 5;
-
-    timer.innerText = "⏳ " + time;
-
-    clearInterval(countdown);
-
-    countdown = setInterval(()=>{
-
-        time--;
-
-        timer.innerText = "⏳ " + time;
-
-        if(time <= 0){
-
-            answers[currentQuestion] = "NoAnswer";
-
-            nextQuestion();
-
-        }
-
-    },1000);
-
+document.body.innerHTML = `
+<h1>Cảm ơn bạn đã tham gia khảo sát!</h1>
+`;
 }
 
 renderQuestion();
