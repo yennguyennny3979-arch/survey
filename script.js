@@ -91,13 +91,13 @@ function showQuestion() {
 
         timer.innerText = "⏳ " + time;
 
-        if(time <= 0){
+     if(time <= 1){
 
-            currentQuestion++;
+    currentQuestion++;
 
-            showQuestion();
+    showQuestion();
 
-        }
+}
 
     },1000);
 
