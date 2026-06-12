@@ -6,78 +6,137 @@ let timer = null;
 
 const userId = crypto.randomUUID();
 
+/* ================= QUESTIONS ================= */
+
 const questions = [
 
+/* ===== CÂU 1–6 ===== */
 {
-type:"image",
-title:"Câu 1",
-time:5,
-images:["images/1 (1).png","images/1 (2).png","images/1 (3).png"]
+type: "image",
+title: "Câu 1: Chọn 1 thương hiệu bạn nhận ra đầu tiên",
+time: 5,
+images: ["images/1 (1).png","images/1 (2).png","images/1 (3).png"]
 },
 {
-type:"image",
-title:"Câu 2",
-time:5,
-images:["images/2 (1).png","images/2 (2).png","images/2 (3).png"]
+type: "image",
+title: "Câu 2: Chọn 1 thương hiệu bạn nhận ra đầu tiên",
+time: 5,
+images: ["images/2 (1).png","images/2 (2).png","images/2 (3).png"]
 },
 {
-type:"image",
-title:"Câu 3",
-time:5,
-images:["images/3 (1).png","images/3 (2).png","images/3 (3).png"]
+type: "image",
+title: "Câu 3: Chọn 1 thương hiệu bạn nhận ra đầu tiên",
+time: 5,
+images: ["images/3 (1).png","images/3 (2).png","images/3 (3).png"]
 },
 {
-type:"image",
-title:"Câu 4",
-time:5,
-images:["images/4 (1).png","images/4 (2).png","images/4 (3).png"]
+type: "image",
+title: "Câu 4: Chọn 1 thương hiệu bạn nhận ra đầu tiên",
+time: 5,
+images: ["images/4 (1).png","images/4 (2).png","images/4 (3).png"]
 },
 {
-type:"image",
-title:"Câu 5",
-time:5,
-images:["images/5 (1).png","images/5 (2).png","images/5 (3).png"]
+type: "image",
+title: "Câu 5: Chọn 1 thương hiệu bạn nhận ra đầu tiên",
+time: 5,
+images: ["images/5 (1).png","images/5 (2).png","images/5 (3).png"]
 },
 {
-type:"image",
-title:"Câu 6",
-time:5,
-images:["images/7 (1).png","images/7 (2).png","images/7 (3).png"]
-},
-
-{
-type:"multi",
-title:"Câu 7",
-time:15,
-max:3,
-options:["AK SPA & BEAUTY","7 ELEVEN","WINMART +","CIRCLE K"]
+type: "image",
+title: "Câu 6: Chọn 1 thương hiệu bạn nhận ra đầu tiên",
+time: 5,
+images: ["images/6 (1).png","images/6 (2).png","images/6 (3).png"]
 },
 
+/* ===== CÂU 7 ===== */
 {
-type:"multi",
-title:"Câu 8",
-time:10,
-max:2,
-options:["Màu sắc","Logo","Tên","Biển hiệu"]
+type: "multi",
+title: "Câu 7: Bạn còn nhớ rõ thương hiệu nào nhất? (chọn 3)",
+time: 15,
+max: 3,
+options: [
+"AK SPA & BEAUTY",
+"SPA TÂY THI",
+"PHƯƠNG THẢO SPA",
+"VÀNG BẠC XUÂN QUỲNH",
+"KHÁNH KIM LON VÀNG BẠC ĐÁ QUÝ",
+"KIM LONG DIỆP JEWELRY STORE LUXURY",
+"CARA CLUB",
+"LỆ QUÂN CLOTHING STORE & MORE",
+"KRIK TONY4MEN",
+"DAIKIN PROSHOP",
+"SHOWROOM ĐIỆN MÁY TOSHIBA",
+"NAGAKAWA ĐIỆN LẠNH GIA DỤNG",
+"7 ELEVEN",
+"WINMART +",
+"CIRCLE K",
+"KLEVER FRUITS",
+"CO.OP FOOD",
+"GS25"
+]
 },
 
+/* ===== CÂU 8 ===== */
 {
-type:"multi",
-title:"Câu 9",
-time:10,
-max:2,
-options:["Màu sắc","Logo","Tên","Biển hiệu"]
+type: "multi",
+title: "Câu 8: Bạn nhận ra thương hiệu do cái gì? (chọn 2)",
+time: 10,
+max: 2,
+options: [
+"Màu sắc",
+"Logo",
+"Tên thương hiệu",
+"Kiểu biển hiệu",
+"Hình ảnh / biểu tượng"
+]
 },
 
+/* ===== CÂU 9 ===== */
 {
-type:"single",
-title:"Câu 10",
-time:10,
-max:1,
-options:["AK SPA & BEAUTY","7 ELEVEN","WINMART +","CIRCLE K"]
+type: "multi",
+title: "Câu 9: Yếu tố giúp cửa hàng được nhận ra nhanh nhất (chọn 2)",
+time: 10,
+max: 2,
+options: [
+"Màu sắc nổi bật",
+"Logo dễ nhận biết",
+"Tên thương hiệu dễ đọc",
+"Biển hiệu lớn, rõ ràng",
+"Biểu tượng / hình ảnh đặc trưng"
+]
+},
+
+/* ===== CÂU 10 ===== */
+{
+type: "single",
+title: "Câu 10: Biển hiệu thương hiệu nào dễ nhận biết nhất?",
+time: 10,
+max: 1,
+options: [
+"AK SPA & BEAUTY",
+"SPA TÂY THI",
+"PHƯƠNG THẢO SPA",
+"VÀNG BẠC XUÂN QUỲNH",
+"KHÁNH KIM LON VÀNG BẠC ĐÁ QUÝ",
+"KIM LONG DIỆP JEWELRY STORE LUXURY",
+"CARA CLUB",
+"LỆ QUÂN CLOTHING STORE & MORE",
+"KRIK TONY4MEN",
+"DAIKIN PROSHOP",
+"SHOWROOM ĐIỆN MÁY TOSHIBA",
+"NAGAKAWA ĐIỆN LẠNH GIA DỤNG",
+"7 ELEVEN",
+"WINMART +",
+"CIRCLE K",
+"KLEVER FRUITS",
+"CO.OP FOOD",
+"GS25"
+]
 }
 
 ];
+
+/* ================= CORE ================= */
 
 function render(){
 
@@ -90,13 +149,17 @@ clearInterval(timer);
 
 let q = questions[current];
 
-document.getElementById("questionTitle").innerText = q.title;
-
 let box = document.getElementById("answers");
 box.innerHTML = "";
 
+document.getElementById("questionBox").innerHTML = `
+<div style="font-size:22px;font-weight:700;margin-bottom:10px;">
+${q.title}
+</div>
+`;
+
 if(q.type === "image"){
-renderImage(q, box);
+renderImages(q, box);
 }else{
 renderOptions(q, box);
 }
@@ -104,14 +167,16 @@ renderOptions(q, box);
 startTimer(q.time);
 }
 
-function renderImage(q, box){
+/* ================= IMAGE ================= */
 
-q.images.forEach((img,i)=>{
+function renderImages(q, box){
+
+q.images.forEach((src,i)=>{
 
 let div = document.createElement("div");
-div.className="card";
+div.className = "card";
 
-div.innerHTML = `<img src="${img}">`;
+div.innerHTML = `<img src="${src}">`;
 
 div.onclick = () => {
 answers[current] = i+1;
@@ -124,6 +189,8 @@ box.appendChild(div);
 
 }
 
+/* ================= OPTIONS ================= */
+
 function renderOptions(q, box){
 
 let selected = [];
@@ -131,7 +198,7 @@ let selected = [];
 q.options.forEach(opt=>{
 
 let div = document.createElement("div");
-div.className="card";
+div.className = "card";
 div.innerText = opt;
 
 div.onclick = () => {
@@ -162,6 +229,8 @@ box.appendChild(div);
 
 }
 
+/* ================= TIMER ================= */
+
 function startTimer(t){
 
 let time = t;
@@ -182,10 +251,14 @@ next();
 
 }
 
+/* ================= NEXT ================= */
+
 function next(){
 current++;
 render();
 }
+
+/* ================= SUBMIT ================= */
 
 async function submit(){
 
@@ -210,7 +283,12 @@ answers
 console.log(e);
 }
 
-document.body.innerHTML = "<h1>Cảm ơn bạn!</h1>";
+document.body.innerHTML = `
+<h1>🎉 Cảm ơn bạn đã tham gia khảo sát</h1>
+<p>Kết quả đã được ghi nhận.</p>
+`;
 }
+
+/* ================= START ================= */
 
 render();
