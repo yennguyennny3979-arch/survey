@@ -33,6 +33,7 @@ images:[
 ];
 
 let currentQuestion = 0;
+let answers = [];
 let time = 5;
 let interval;
 
@@ -56,8 +57,27 @@ function showQuestion() {
     `${q.title} (${currentQuestion + 1}/${questions.length})`;
 
     q.images.forEach((url,index)=>{
-        images[index].src = url;
-    });
+
+    images[index].src = url;
+
+    images[index].classList.remove("selected");
+
+    images[index].onclick = ()=>{
+
+        images.forEach(img=>{
+            img.classList.remove("selected");
+        });
+
+        images[index].classList.add("selected");
+
+        answers[currentQuestion] =
+        index + 1;
+
+        console.log(answers);
+
+    };
+
+});
 
     time = 5;
 
