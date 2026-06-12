@@ -235,6 +235,8 @@ let time = t;
 
 document.getElementById("timer").innerText = time;
 
+clearInterval(timer);
+
 timer = setInterval(()=>{
 
 time--;
@@ -252,6 +254,7 @@ next();
 /* ================= NEXT ================= */
 
 function next(){
+clearInterval(timer);
 current++;
 render();
 }
@@ -273,9 +276,21 @@ body: JSON.stringify({
 userId:userId,
 answers:answers
 })
-}).then(()=>{
+})
+.then(()=>{
 
-document.body.innerHTML = "<h1>Hoàn thành khảo sát</h1>";
+document.body.innerHTML = `
+<h1>Hoàn thành khảo sát</h1>
+<p>Dữ liệu đã được ghi nhận</p>
+`;
+
+})
+.catch(()=>{
+
+document.body.innerHTML = `
+<h1>Lỗi gửi dữ liệu</h1>
+<p>Vui lòng thử lại</p>
+`;
 
 });
 
