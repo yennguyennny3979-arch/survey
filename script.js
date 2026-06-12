@@ -1,4 +1,4 @@
-const GOOGLE_SCRIPT_URL = "https://https://script.google.com/macros/s/AKfycbw408-K-E1y5XEV7lLdtfsPBkNzIfFwiVZmeiuuJT4nrh1Fq4Gf1_LYYfGVk_vVAeyHsQ/exec";
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby7r4a-3_JcrioYUEx5YEnP185JUQHWZXIwnmP1Zfj-G3scELAuRo-_LPJlKU03iNc-LA/exec";
 
 let current = 0;
 let answers = [];
