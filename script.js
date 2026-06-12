@@ -1,5 +1,3 @@
-alert("SCRIPT VERSION 999");
-
 const questions = [
 {
     title: "Câu 1",
