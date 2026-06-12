@@ -1,4 +1,5 @@
 const questions = [
+
 {
     title: "Câu 1",
     images: [
@@ -8,6 +9,7 @@ const questions = [
         "https://picsum.photos/300?4"
     ]
 },
+
 {
     title: "Câu 2",
     images: [
@@ -17,6 +19,7 @@ const questions = [
         "https://picsum.photos/300?8"
     ]
 },
+
 {
     title: "Câu 3",
     images: [
@@ -26,6 +29,7 @@ const questions = [
         "https://picsum.photos/300?12"
     ]
 }
+
 ];
 
 let currentQuestion = 0;
@@ -42,8 +46,14 @@ function finishSurvey() {
 
     document.body.innerHTML = `
         <h1>Cảm ơn bạn đã tham gia khảo sát!</h1>
-        <p>Đáp án đã chọn:</p>
-        <pre>${JSON.stringify(answers)}</pre>
+
+        <p>
+        Đáp án đã chọn:
+        </p>
+
+        <pre>
+${JSON.stringify(answers)}
+        </pre>
     `;
 }
 
@@ -51,8 +61,10 @@ function nextQuestion() {
 
     currentQuestion++;
 
-    if (currentQuestion >= questions.length) {
+    if(currentQuestion >= questions.length){
+
         finishSurvey();
+
         return;
     }
 
@@ -64,22 +76,34 @@ function renderQuestion() {
     const q = questions[currentQuestion];
 
     title.innerText =
-    `${q.title} (${currentQuestion + 1}/${questions.length})`;
+    `Câu ${currentQuestion + 1} / ${questions.length}`;
 
-    q.images.forEach((url, index) => {
+    q.images.forEach((url,index)=>{
 
         images[index].src = url;
 
         images[index].classList.remove("selected");
 
-        images[index].onclick = () => {
+        images[index].onclick = ()=>{
 
             clearInterval(countdown);
 
+            images.forEach(img=>{
+                img.classList.remove("selected");
+            });
+
+            images[index].classList.add("selected");
+
             answers[currentQuestion] = index + 1;
 
-            nextQuestion();
+            setTimeout(()=>{
+
+                nextQuestion();
+
+            },300);
+
         };
+
     });
 
     let time = 5;
@@ -88,20 +112,22 @@ function renderQuestion() {
 
     clearInterval(countdown);
 
-    countdown = setInterval(() => {
+    countdown = setInterval(()=>{
 
         time--;
 
         timer.innerText = "⏳ " + time;
 
-        if (time <= 0) {
+        if(time <= 0){
 
             answers[currentQuestion] = "NoAnswer";
 
             nextQuestion();
+
         }
 
-    }, 1000);
+    },1000);
+
 }
 
 renderQuestion();
