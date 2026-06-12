@@ -1,18 +1,20 @@
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/xxxxx/exec";
 
-const userId = crypto.randomUUID();
-
 let current = 0;
 let answers = [];
-
+let timer = null;
 let selectedMulti = [];
+
+const userId = crypto.randomUUID();
+
+/* ================= QUESTIONS ================= */
 
 const questions = [
 
-/* ========== CÂU 1-6 (ẢNH) ========== */
+/* ===== CÂU 1–6 (ẢNH) ===== */
 {
 type: "image",
-title: "Câu 1: Quan sát hình ảnh",
+title: "Câu 1",
 time: 5,
 maxSelect: 1,
 images: [
@@ -23,7 +25,7 @@ images: [
 },
 {
 type: "image",
-title: "Câu 2: Quan sát hình ảnh",
+title: "Câu 2",
 time: 5,
 maxSelect: 1,
 images: [
@@ -34,7 +36,7 @@ images: [
 },
 {
 type: "image",
-title: "Câu 3: Quan sát hình ảnh",
+title: "Câu 3",
 time: 5,
 maxSelect: 1,
 images: [
@@ -45,7 +47,7 @@ images: [
 },
 {
 type: "image",
-title: "Câu 4: Quan sát hình ảnh",
+title: "Câu 4",
 time: 5,
 maxSelect: 1,
 images: [
@@ -56,7 +58,7 @@ images: [
 },
 {
 type: "image",
-title: "Câu 5: Quan sát hình ảnh",
+title: "Câu 5",
 time: 5,
 maxSelect: 1,
 images: [
@@ -67,7 +69,7 @@ images: [
 },
 {
 type: "image",
-title: "Câu 6: Quan sát hình ảnh",
+title: "Câu 6",
 time: 5,
 maxSelect: 1,
 images: [
@@ -77,10 +79,10 @@ images: [
 ]
 },
 
-/* ========== CÂU 7 ========== */
+/* ===== CÂU 7 ===== */
 {
 type: "multi",
-title: "Câu 7: Nhớ thương hiệu (chọn 3)",
+title: "Câu 7: Chọn 3 thương hiệu bạn nhớ",
 time: 15,
 maxSelect: 3,
 options: [
@@ -105,10 +107,10 @@ options: [
 ]
 },
 
-/* ========== CÂU 8 ========== */
+/* ===== CÂU 8 ===== */
 {
 type: "multi",
-title: "Câu 8: Điều bạn nhớ nhất (chọn 2)",
+title: "Câu 8: Chọn 2 điều bạn nhớ",
 time: 10,
 maxSelect: 2,
 options: [
@@ -120,7 +122,7 @@ options: [
 ]
 },
 
-/* ========== CÂU 9 ========== */
+/* ===== CÂU 9 ===== */
 {
 type: "multi",
 title: "Câu 9: Yếu tố nhận diện nhanh (chọn 2)",
@@ -135,7 +137,7 @@ options: [
 ]
 },
 
-/* ========== CÂU 10 ========== */
+/* ===== CÂU 10 ===== */
 {
 type: "single",
 title: "Câu 10: Thương hiệu dễ nhận biết nhất",
@@ -165,8 +167,9 @@ options: [
 
 ];
 
-function renderQuestion(){
+/* ================= CORE ================= */
 
+function render(){
 if(current >= questions.length){
 submit();
 return;
@@ -174,15 +177,27 @@ return;
 
 let q = questions[current];
 
-document.getElementById("questionTitle").innerText =
-q.title;
+document.getElementById("questionTitle").innerText = q.title;
 
-let container = document.getElementById("answers");
-container.innerHTML = "";
+let box = document.getElementById("answers");
+box.innerHTML = "";
 
 selectedMulti = [];
 
+if(timer) clearInterval(timer);
+
 if(q.type === "image"){
+renderImages(q, box);
+}else{
+renderOptions(q, box);
+}
+
+startTimer(q.time);
+}
+
+/* ================= IMAGE ================= */
+
+function renderImages(q, box){
 q.images.forEach((img, i)=>{
 
 let div = document.createElement("div");
@@ -191,16 +206,28 @@ div.className = "card";
 div.innerHTML = `<img src="${img}">`;
 
 div.onclick = () => {
+
 answers[current] = i + 1;
-highlight(div);
+
+document.querySelectorAll(".card")
+.forEach(c => c.classList.remove("selected"));
+
+div.classList.add("selected");
+
+/* auto next */
+setTimeout(next, 300);
 };
 
-container.appendChild(div);
+box.appendChild(div);
+
 });
+}
 
-}else{
+/* ================= OPTIONS ================= */
 
-q.options.forEach((opt)=>{
+function renderOptions(q, box){
+
+q.options.forEach(opt=>{
 
 let div = document.createElement("div");
 div.className = "card";
@@ -210,13 +237,18 @@ div.onclick = () => {
 
 if(q.maxSelect === 1){
 answers[current] = opt;
-document.querySelectorAll(".card").forEach(c=>c.classList.remove("selected"));
+
+document.querySelectorAll(".card")
+.forEach(c => c.classList.remove("selected"));
+
 div.classList.add("selected");
+
+setTimeout(next, 300);
 return;
 }
 
 if(selectedMulti.includes(opt)){
-selectedMulti = selectedMulti.filter(x=>x !== opt);
+selectedMulti = selectedMulti.filter(x => x !== opt);
 div.classList.remove("selected");
 }else{
 if(selectedMulti.length < q.maxSelect){
@@ -226,47 +258,54 @@ div.classList.add("selected");
 }
 
 answers[current] = selectedMulti;
+
 };
 
-container.appendChild(div);
+box.appendChild(div);
 
 });
+
 }
 
-startTimer(q.time);
-}
+/* ================= TIMER ================= */
 
-function highlight(div){
-document.querySelectorAll(".card")
-.forEach(c=>c.classList.remove("selected"));
-div.classList.add("selected");
-}
+function startTimer(t){
 
-function startTimer(time){
+let time = t;
 
-let t = time;
-document.getElementById("timer").innerText = t;
+document.getElementById("timer").innerText = time;
 
-let interval = setInterval(()=>{
+timer = setInterval(()=>{
 
-t--;
-document.getElementById("timer").innerText = t;
+time--;
+document.getElementById("timer").innerText = time;
 
-if(t <= 0){
-clearInterval(interval);
+if(time <= 0){
+clearInterval(timer);
 
 if(!answers[current]){
 answers[current] = "NoAnswer";
 }
 
-current++;
-renderQuestion();
+next();
 }
 
 },1000);
+
 }
 
+/* ================= NEXT ================= */
+
+function next(){
+current++;
+render();
+}
+
+/* ================= SUBMIT ================= */
+
 async function submit(){
+
+document.body.innerHTML = "<h1>Đang gửi dữ liệu...</h1>";
 
 await fetch(GOOGLE_SCRIPT_URL,{
 method:"POST",
@@ -277,8 +316,11 @@ answers
 });
 
 document.body.innerHTML = `
-<h1>Cảm ơn bạn đã tham gia khảo sát!</h1>
+<h1>🎉 Cảm ơn bạn đã tham gia khảo sát!</h1>
+<p>Chúc bạn một ngày tốt lành.</p>
 `;
 }
 
-renderQuestion();
+/* ================= START ================= */
+
+render();
