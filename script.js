@@ -1,111 +1,107 @@
 const questions = [
-
 {
-title:"Câu 1",
-images:[
-"https://picsum.photos/300?1",
-"https://picsum.photos/300?2",
-"https://picsum.photos/300?3",
-"https://picsum.photos/300?4"
-]
+    title: "Câu 1",
+    images: [
+        "https://picsum.photos/300?1",
+        "https://picsum.photos/300?2",
+        "https://picsum.photos/300?3",
+        "https://picsum.photos/300?4"
+    ]
 },
-
 {
-title:"Câu 2",
-images:[
-"https://picsum.photos/300?5",
-"https://picsum.photos/300?6",
-"https://picsum.photos/300?7",
-"https://picsum.photos/300?8"
-]
+    title: "Câu 2",
+    images: [
+        "https://picsum.photos/300?5",
+        "https://picsum.photos/300?6",
+        "https://picsum.photos/300?7",
+        "https://picsum.photos/300?8"
+    ]
 },
-
 {
-title:"Câu 3",
-images:[
-"https://picsum.photos/300?9",
-"https://picsum.photos/300?10",
-"https://picsum.photos/300?11",
-"https://picsum.photos/300?12"
-]
+    title: "Câu 3",
+    images: [
+        "https://picsum.photos/300?9",
+        "https://picsum.photos/300?10",
+        "https://picsum.photos/300?11",
+        "https://picsum.photos/300?12"
+    ]
 }
-
 ];
 
 let currentQuestion = 0;
 let answers = [];
-let time = 5;
-let interval;
+let countdown = null;
 
 const title = document.querySelector("h1");
 const timer = document.querySelector("h2");
 const images = document.querySelectorAll("img");
 
-function showQuestion() {
+function finishSurvey() {
 
-if(currentQuestion >= questions.length){
+    clearInterval(countdown);
 
-    document.body.innerHTML =
-
-    "<h1>Cảm ơn bạn đã tham gia khảo sát!</h1>" +
-
-    "<p>Đáp án: " +
-
-    JSON.stringify(answers) +
-
-    "</p>";
-
-    return;
+    document.body.innerHTML = `
+        <h1>Cảm ơn bạn đã tham gia khảo sát!</h1>
+        <p>Đáp án đã chọn:</p>
+        <pre>${JSON.stringify(answers)}</pre>
+    `;
 }
+
+function nextQuestion() {
+
+    currentQuestion++;
+
+    if (currentQuestion >= questions.length) {
+        finishSurvey();
+        return;
+    }
+
+    renderQuestion();
+}
+
+function renderQuestion() {
 
     const q = questions[currentQuestion];
 
     title.innerText =
-    `${q.title} (${currentQuestion + 1}/${questions.length})`;
+        `${q.title} (${currentQuestion + 1}/${questions.length})`;
 
-    q.images.forEach((url,index)=>{
+    q.images.forEach((url, index) => {
 
-    images[index].src = url;
+        images[index].src = url;
 
-    images[index].classList.remove("selected");
+        images[index].classList.remove("selected");
 
-images[index].onclick = ()=>{
+        images[index].onclick = () => {
 
-    clearInterval(interval);
+            clearInterval(countdown);
 
-    answers[currentQuestion] =
-    index + 1;
+            answers[currentQuestion] = index + 1;
 
-    currentQuestion++;
+            nextQuestion();
+        };
+    });
 
-    showQuestion();
-
-};
-
-});
-
-    time = 5;
+    let time = 5;
 
     timer.innerText = "⏳ " + time;
 
-    clearInterval(interval);
+    clearInterval(countdown);
 
-    interval = setInterval(()=>{
+    countdown = setInterval(() => {
 
         time--;
 
         timer.innerText = "⏳ " + time;
 
-     if(time <= 1){
+        if (time <= 0) {
 
-    currentQuestion++;
+            answers[currentQuestion] = "NoAnswer";
 
-    showQuestion();
+            nextQuestion();
+        }
 
+    }, 1000);
 }
 
-    },1000);
-
-}
-
-showQuestion();
+renderQuestion();
