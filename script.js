@@ -4,7 +4,8 @@ let current = 0;
 let answers = [];
 let timer = null;
 
-const userId = crypto.randomUUID();
+// an toàn hơn crypto.randomUUID()
+const userId = "user_" + Math.random().toString(36).substr(2, 9);
 
 /* ================= DATA ================= */
 
@@ -51,86 +52,54 @@ images:["images/6 (1).png","images/6 (2).png","images/6 (3).png"]
 /* ===== CÂU 7 ===== */
 {
 type:"multi",
-title:"Câu 7: Bạn còn nhớ nhận diện của thương hiệu nào nhất? (chọn 3)",
+title:"Câu 7: Chọn 3 thương hiệu bạn nhớ nhất",
 time:15,
 max:3,
 options:[
-"AK SPA & BEAUTY",
-"SPA TÂY THI",
-"PHƯƠNG THẢO SPA",
-"VÀNG BẠC XUÂN QUỲNH",
-"KHÁNH KIM LON VÀNG BẠC ĐÁ QUÝ",
-"KIM LONG DIỆP JEWELRY STORE LUXURY",
-"CARA CLUB",
-"LỆ QUÂN CLOTHING STORE & MORE",
-"KRIK TONY4MEN",
-"DAIKIN PROSHOP",
-"SHOWROOM ĐIỆN MÁY TOSHIBA",
-"NAGAKAWA ĐIỆN LẠNH GIA DỤNG",
-"7 ELEVEN",
-"WINMART +",
-"CIRCLE K",
-"KLEVER FRUITS",
-"CO.OP FOOD",
-"GS25"
+"AK SPA & BEAUTY","SPA TÂY THI","PHƯƠNG THẢO SPA",
+"VÀNG BẠC XUÂN QUỲNH","KHÁNH KIM LON VÀNG BẠC ĐÁ QUÝ",
+"KIM LONG DIỆP JEWELRY STORE LUXURY","CARA CLUB",
+"LỆ QUÂN CLOTHING STORE & MORE","KRIK TONY4MEN",
+"DAIKIN PROSHOP","SHOWROOM ĐIỆN MÁY TOSHIBA",
+"NAGAKAWA ĐIỆN LẠNH GIA DỤNG","7 ELEVEN",
+"WINMART +","CIRCLE K","KLEVER FRUITS",
+"CO.OP FOOD","GS25"
 ]
 },
 
 /* ===== CÂU 8 ===== */
 {
 type:"multi",
-title:"Câu 8: Bạn nhận ra thương hiệu do điều gì? (chọn 2)",
+title:"Câu 8: Chọn 2 yếu tố giúp nhận diện",
 time:10,
 max:2,
-options:[
-"Màu sắc",
-"Logo",
-"Tên thương hiệu",
-"Kiểu biển hiệu",
-"Hình ảnh / biểu tượng"
-]
+options:["Màu sắc","Logo","Tên thương hiệu","Kiểu biển hiệu","Hình ảnh / biểu tượng"]
 },
 
 /* ===== CÂU 9 ===== */
 {
 type:"multi",
-title:"Câu 9: Yếu tố giúp bạn nhận diện nhanh nhất (chọn 2)",
+title:"Câu 9: Yếu tố quan trọng nhất",
 time:10,
 max:2,
-options:[
-"Màu sắc nổi bật",
-"Logo dễ nhận biết",
-"Tên thương hiệu dễ đọc",
-"Biển hiệu lớn rõ ràng",
-"Biểu tượng đặc trưng"
-]
+options:["Màu sắc nổi bật","Logo dễ nhận biết","Tên thương hiệu dễ đọc","Biển hiệu lớn rõ ràng","Biểu tượng đặc trưng"]
 },
 
 /* ===== CÂU 10 ===== */
 {
 type:"single",
-title:"Câu 10: Thương hiệu nào bạn thấy dễ nhận biết nhất",
+title:"Câu 10: Thương hiệu dễ nhận biết nhất",
 time:10,
 max:1,
 options:[
-"AK SPA & BEAUTY",
-"SPA TÂY THI",
-"PHƯƠNG THẢO SPA",
-"VÀNG BẠC XUÂN QUỲNH",
-"KHÁNH KIM LON VÀNG BẠC ĐÁ QUÝ",
-"KIM LONG DIỆP JEWELRY STORE LUXURY",
-"CARA CLUB",
-"LỆ QUÂN CLOTHING STORE & MORE",
-"KRIK TONY4MEN",
-"DAIKIN PROSHOP",
-"SHOWROOM ĐIỆN MÁY TOSHIBA",
-"NAGAKAWA ĐIỆN LẠNH GIA DỤNG",
-"7 ELEVEN",
-"WINMART +",
-"CIRCLE K",
-"KLEVER FRUITS",
-"CO.OP FOOD",
-"GS25"
+"AK SPA & BEAUTY","SPA TÂY THI","PHƯƠNG THẢO SPA",
+"VÀNG BẠC XUÂN QUỲNH","KHÁNH KIM LON VÀNG BẠC ĐÁ QUÝ",
+"KIM LONG DIỆP JEWELRY STORE LUXURY","CARA CLUB",
+"LỆ QUÂN CLOTHING STORE & MORE","KRIK TONY4MEN",
+"DAIKIN PROSHOP","SHOWROOM ĐIỆN MÁY TOSHIBA",
+"NAGAKAWA ĐIỆN LẠNH GIA DỤNG","7 ELEVEN",
+"WINMART +","CIRCLE K","KLEVER FRUITS",
+"CO.OP FOOD","GS25"
 ]
 }
 
@@ -174,7 +143,7 @@ div.className = "card";
 
 div.innerHTML = `<img src="${q.images[i]}">`;
 
-div.onclick = function(){
+div.onclick = () => {
 answers[current] = i+1;
 next();
 };
@@ -199,7 +168,7 @@ let div = document.createElement("div");
 div.className = "card";
 div.innerText = opt;
 
-div.onclick = function(){
+div.onclick = () => {
 
 if(q.max === 1){
 answers[current] = opt;
@@ -208,7 +177,7 @@ return;
 }
 
 if(selected.includes(opt)){
-selected = selected.filter(x=>x!==opt);
+selected = selected.filter(x => x !== opt);
 div.classList.remove("selected");
 }else{
 if(selected.length < q.max){
@@ -219,18 +188,20 @@ div.classList.add("selected");
 
 answers[current] = selected;
 
-/* 🔥 FIX CHẮC CHẮN AUTO-NEXT */
+/* auto next khi đủ chọn */
 if(q.max > 1 && selected.length === q.max){
-
-clearInterval(timer); // ⚠️ quan trọng
-
-setTimeout(function(){
-next();
-},200);
-
+clearInterval(timer);
+setTimeout(next, 200);
 }
 
 };
+
+box.appendChild(div);
+
+}
+
+/* 🔥 END FUNCTION (ĐÃ FIX NGOẶC ĐẦY ĐỦ) */
+}
 
 /* ================= TIMER ================= */
 
@@ -242,7 +213,7 @@ document.getElementById("timer").innerText = time;
 
 clearInterval(timer);
 
-timer = setInterval(()=>{
+timer = setInterval(() => {
 
 time--;
 document.getElementById("timer").innerText = time;
@@ -282,7 +253,7 @@ userId:userId,
 answers:answers
 })
 })
-.then(function(){
+.then(() => {
 
 document.body.innerHTML = `
 <h1>Hoàn thành khảo sát</h1>
@@ -290,16 +261,17 @@ document.body.innerHTML = `
 `;
 
 })
-.catch(function(){
+.catch(() => {
 
-/* ⚠️ KHÔNG coi là lỗi cứng */
 document.body.innerHTML = `
 <h1>Hoàn thành khảo sát</h1>
-<p>Dữ liệu có thể đã được gửi thành công</p>
+<p>Đã hoàn thành (có thể chưa gửi được dữ liệu)</p>
 `;
 
 });
 
 }
+
+/* ================= START ================= */
 
 render();
