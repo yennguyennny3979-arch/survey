@@ -2,7 +2,7 @@ const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/xxxxx/exec";
 
 let current = 0;
 let answers = [];
-let timer;
+let timer = null;
 
 const userId = crypto.randomUUID();
 
@@ -10,82 +10,127 @@ const userId = crypto.randomUUID();
 
 const questions = [
 
+/* ===== IMAGE 1–6 ===== */
 {
 type:"image",
-title:"Câu 1",
+title:"Câu 1: Chọn 1 thương hiệu bạn nhận ra đầu tiên",
 time:5,
 images:["images/1 (1).png","images/1 (2).png","images/1 (3).png"]
 },
 {
 type:"image",
-title:"Câu 2",
+title:"Câu 2: Chọn 1 thương hiệu bạn nhận ra đầu tiên",
 time:5,
 images:["images/2 (1).png","images/2 (2).png","images/2 (3).png"]
 },
 {
 type:"image",
-title:"Câu 3",
+title:"Câu 3: Chọn 1 thương hiệu bạn nhận ra đầu tiên",
 time:5,
 images:["images/3 (1).png","images/3 (2).png","images/3 (3).png"]
 },
 {
 type:"image",
-title:"Câu 4",
+title:"Câu 4: Chọn 1 thương hiệu bạn nhận ra đầu tiên",
 time:5,
 images:["images/4 (1).png","images/4 (2).png","images/4 (3).png"]
 },
 {
 type:"image",
-title:"Câu 5",
+title:"Câu 5: Chọn 1 thương hiệu bạn nhận ra đầu tiên",
 time:5,
 images:["images/5 (1).png","images/5 (2).png","images/5 (3).png"]
 },
 {
 type:"image",
-title:"Câu 6",
+title:"Câu 6: Chọn 1 thương hiệu bạn nhận ra đầu tiên",
 time:5,
 images:["images/6 (1).png","images/6 (2).png","images/6 (3).png"]
 },
 
+/* ===== CÂU 7 ===== */
 {
 type:"multi",
-title:"Câu 7 (chọn 3)",
+title:"Câu 7: Bạn còn nhớ nhận diện của thương hiệu nào nhất? (chọn 3)",
 time:15,
 max:3,
 options:[
-"AK SPA & BEAUTY","SPA TÂY THI","PHƯƠNG THẢO SPA",
-"7 ELEVEN","WINMART +","CIRCLE K",
-"KLEVER FRUITS","CO.OP FOOD","GS25"
+"AK SPA & BEAUTY",
+"SPA TÂY THI",
+"PHƯƠNG THẢO SPA",
+"VÀNG BẠC XUÂN QUỲNH",
+"KHÁNH KIM LON VÀNG BẠC ĐÁ QUÝ",
+"KIM LONG DIỆP JEWELRY STORE LUXURY",
+"CARA CLUB",
+"LỆ QUÂN CLOTHING STORE & MORE",
+"KRIK TONY4MEN",
+"DAIKIN PROSHOP",
+"SHOWROOM ĐIỆN MÁY TOSHIBA",
+"NAGAKAWA ĐIỆN LẠNH GIA DỤNG",
+"7 ELEVEN",
+"WINMART +",
+"CIRCLE K",
+"KLEVER FRUITS",
+"CO.OP FOOD",
+"GS25"
 ]
 },
 
+/* ===== CÂU 8 ===== */
 {
 type:"multi",
-title:"Câu 8 (chọn 2)",
+title:"Câu 8: Bạn nhận ra thương hiệu do điều gì? (chọn 2)",
 time:10,
 max:2,
 options:[
-"Màu sắc","Logo","Tên thương hiệu","Biển hiệu","Hình ảnh"
+"Màu sắc",
+"Logo",
+"Tên thương hiệu",
+"Kiểu biển hiệu",
+"Hình ảnh / biểu tượng"
 ]
 },
 
+/* ===== CÂU 9 ===== */
 {
 type:"multi",
-title:"Câu 9 (chọn 2)",
+title:"Câu 9: Yếu tố giúp bạn nhận diện nhanh nhất (chọn 2)",
 time:10,
 max:2,
 options:[
-"Màu sắc nổi bật","Logo dễ nhớ","Tên dễ đọc","Biển hiệu lớn"
+"Màu sắc nổi bật",
+"Logo dễ nhận biết",
+"Tên thương hiệu dễ đọc",
+"Biển hiệu lớn rõ ràng",
+"Biểu tượng đặc trưng"
 ]
 },
 
+/* ===== CÂU 10 ===== */
 {
 type:"single",
-title:"Câu 10",
+title:"Câu 10: Thương hiệu nào bạn thấy dễ nhận biết nhất",
 time:10,
 max:1,
 options:[
-"AK SPA & BEAUTY","7 ELEVEN","WINMART +","CIRCLE K"
+"AK SPA & BEAUTY",
+"SPA TÂY THI",
+"PHƯƠNG THẢO SPA",
+"VÀNG BẠC XUÂN QUỲNH",
+"KHÁNH KIM LON VÀNG BẠC ĐÁ QUÝ",
+"KIM LONG DIỆP JEWELRY STORE LUXURY",
+"CARA CLUB",
+"LỆ QUÂN CLOTHING STORE & MORE",
+"KRIK TONY4MEN",
+"DAIKIN PROSHOP",
+"SHOWROOM ĐIỆN MÁY TOSHIBA",
+"NAGAKAWA ĐIỆN LẠNH GIA DỤNG",
+"7 ELEVEN",
+"WINMART +",
+"CIRCLE K",
+"KLEVER FRUITS",
+"CO.OP FOOD",
+"GS25"
 ]
 }
 
@@ -116,28 +161,27 @@ renderOptions(q, box);
 }
 
 startTimer(q.time);
-
 }
 
 /* ================= IMAGE ================= */
 
 function renderImage(q, box){
 
-q.images.forEach((img,i)=>{
+for(let i=0;i<q.images.length;i++){
 
 let div = document.createElement("div");
 div.className = "card";
 
-div.innerHTML = `<img src="${img}">`;
+div.innerHTML = `<img src="${q.images[i]}">`;
 
-div.onclick = () => {
-answers[current] = i + 1;
+div.onclick = function(){
+answers[current] = i+1;
 next();
 };
 
 box.appendChild(div);
 
-});
+}
 
 }
 
@@ -145,28 +189,23 @@ box.appendChild(div);
 
 function renderOptions(q, box){
 
-let selected = answers[current] || [];
+let selected = [];
 
-q.options.forEach(opt=>{
+for(let i=0;i<q.options.length;i++){
+
+let opt = q.options[i];
 
 let div = document.createElement("div");
 div.className = "card";
 div.innerText = opt;
 
-/* giữ trạng thái nếu quay lại render */
-if(Array.isArray(selected) && selected.includes(opt)){
-div.classList.add("selected");
-}
-
-div.onclick = () => {
+div.onclick = function(){
 
 if(q.max === 1){
 answers[current] = opt;
 next();
 return;
 }
-
-if(!Array.isArray(selected)) selected = [];
 
 if(selected.includes(opt)){
 selected = selected.filter(x=>x!==opt);
@@ -184,24 +223,24 @@ answers[current] = selected;
 
 box.appendChild(div);
 
-});
+}
 
 }
 
 /* ================= TIMER ================= */
 
-function startTimer(time){
+function startTimer(t){
 
-let t = time;
+let time = t;
 
-document.getElementById("timer").innerText = t;
+document.getElementById("timer").innerText = time;
 
 timer = setInterval(()=>{
 
-t--;
-document.getElementById("timer").innerText = t;
+time--;
+document.getElementById("timer").innerText = time;
 
-if(t <= 0){
+if(time <= 0){
 clearInterval(timer);
 next();
 }
@@ -219,25 +258,26 @@ render();
 
 /* ================= SUBMIT ================= */
 
-async function submit(){
+function submit(){
 
 clearInterval(timer);
 
 document.body.innerHTML = "<h2>Đang gửi dữ liệu...</h2>";
 
-try{
-
-await fetch(GOOGLE_SCRIPT_URL,{
+fetch(GOOGLE_SCRIPT_URL,{
 method:"POST",
-headers:{ "Content-Type":"application/json" },
-body: JSON.stringify({ userId, answers })
-});
-
-}catch(e){
-console.log(e);
-}
+headers:{
+"Content-Type":"application/json"
+},
+body: JSON.stringify({
+userId:userId,
+answers:answers
+})
+}).then(()=>{
 
 document.body.innerHTML = "<h1>Hoàn thành khảo sát</h1>";
+
+});
 
 }
 
