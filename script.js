@@ -42,7 +42,7 @@ images:["images/5 (1).png","images/5 (2).png","images/5 (3).png"]
 type:"image",
 title:"Câu 6",
 time:5,
-images:["images/6 (1).png","images/6 (2).png","images/6 (3).png"]
+images:["images/7 (1).png","images/7 (2).png","images/7 (3).png"]
 },
 
 {
