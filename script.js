@@ -46,7 +46,16 @@ function showQuestion() {
     if(currentQuestion >= questions.length){
 
         document.body.innerHTML =
-        "<h1>Cảm ơn bạn đã tham gia khảo sát!</h1>";
+
+"<h1>Cảm ơn bạn đã tham gia khảo sát!</h1>" +
+
+"<p>" +
+
+JSON.stringify(answers)
+
++
+
+"</p>";
 
         return;
     }
