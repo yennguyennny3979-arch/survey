@@ -52,7 +52,7 @@ images:["images/6 (1).png","images/6 (2).png","images/6 (3).png"]
 /* ===== CÂU 7 ===== */
 {
 type:"multi",
-title:"Câu 7: Chọn 3 thương hiệu bạn nhớ nhất",
+title:"Câu 7: Chọn 3 thương hiệu bạn nhớ được qua 6 câu hỏi hình ảnh đã chọn?",
 time:15,
 max:3,
 options:[
@@ -70,7 +70,7 @@ options:[
 /* ===== CÂU 8 ===== */
 {
 type:"multi",
-title:"Câu 8: Chọn 2 yếu tố giúp nhận diện",
+title:"Câu 8: Chọn 2 yếu tố giúp bạn nhận diện được thương hiệu đó.",
 time:15,
 max:2,
 options:["Màu sắc","Logo","Tên thương hiệu","Kiểu biển hiệu","Hình ảnh / biểu tượng"]
@@ -79,7 +79,7 @@ options:["Màu sắc","Logo","Tên thương hiệu","Kiểu biển hiệu","Hìn
 /* ===== CÂU 9 ===== */
 {
 type:"multi",
-title:"Câu 9: Yếu tố quan trọng nhất",
+title:"Câu 9: Theo bạn thì yếu tố quan trọng nhất giúp bạn nhận diện được thương hiệu đó.",
 time:15,
 max:2,
 options:["Màu sắc nổi bật","Logo dễ nhận biết","Tên thương hiệu dễ đọc","Biển hiệu lớn rõ ràng","Biểu tượng đặc trưng"]
@@ -88,8 +88,8 @@ options:["Màu sắc nổi bật","Logo dễ nhận biết","Tên thương hiệ
 /* ===== CÂU 10 ===== */
 {
 type:"single",
-title:"Câu 10: Thương hiệu dễ nhận biết nhất",
-time:10,
+title:"Câu 10: Trong 18 thương hiệu trên, hương hiệu bạn thấy dễ nhận biết nhất ở 5 giây đầu tiên.",
+time:15,
 max:1,
 options:[
 "AK SPA & BEAUTY","SPA TÂY THI","PHƯƠNG THẢO SPA",
