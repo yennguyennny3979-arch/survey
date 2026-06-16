@@ -14,38 +14,38 @@ const questions = [
 /* ===== IMAGE 1–6 ===== */
 {
 type:"image",
-title:"Câu 1: Chọn 1 hình ảnh thu hút bạn đầu tiên",
-time:8,
+title:"Câu 1: Chọn 1 hình ảnh thu hút bạn trong 5 giây đầu tiên.",
+time:10,
 images:["images/1 (1).png","images/1 (2).png","images/1 (3).png"]
 },
 {
 type:"image",
-title:"Câu 2: Chọn 1 hình ảnh thu hút bạn đầu tiên",
-time:8,
+title:"Câu 2: Chọn 1 hình ảnh thu hút bạn trong 5 giây đầu tiên",
+time:10,
 images:["images/2 (1).png","images/2 (2).png","images/2 (3).png"]
 },
 {
 type:"image",
-title:"Câu 3: Chọn 1 hình ảnh thu hút bạn đầu tiên",
-time:8,
+title:"Câu 3: Chọn 1 hình ảnh thu hút bạn trong 5 giây đầu tiên",
+time:10,
 images:["images/3 (1).png","images/3 (2).png","images/3 (3).png"]
 },
 {
 type:"image",
-title:"Câu 4: Chọn 1 hình ảnh thu hút bạn đầu tiên",
-time:8,
+title:"Câu 4: Chọn 1 hình ảnh thu hút bạn trong 5 giây đầu tiên",
+time:10,
 images:["images/4 (1).png","images/4 (2).png","images/4 (3).png"]
 },
 {
 type:"image",
-title:"Câu 5: Chọn 1 hình ảnh thu hút bạn đầu tiên",
-time:8,
+title:"Câu 5: Chọn 1 hình ảnh thu hút bạn trong 5 giây đầu tiên",
+time:10,
 images:["images/5 (1).png","images/5 (2).png","images/5 (3).png"]
 },
 {
 type:"image",
-title:"Câu 6: Chọn 1 hình ảnh thu hút bạn đầu tiên",
-time:8,
+title:"Câu 6: Chọn 1 hình ảnh thu hút bạn trong 5 giây đầu tiên",
+time:10,
 images:["images/6 (1).png","images/6 (2).png","images/6 (3).png"]
 },
 
@@ -53,7 +53,7 @@ images:["images/6 (1).png","images/6 (2).png","images/6 (3).png"]
 {
 type:"multi",
 title:"Câu 7: Chọn 3 thương hiệu bạn nhớ được qua 6 câu hỏi hình ảnh đã chọn?",
-time:15,
+time:20,
 max:3,
 options:[
 "AK SPA & BEAUTY","SPA TÂY THI","PHƯƠNG THẢO SPA",
@@ -70,8 +70,8 @@ options:[
 /* ===== CÂU 8 ===== */
 {
 type:"multi",
-title:"Câu 8: Chọn 2 yếu tố giúp bạn nhận diện được thương hiệu đó.",
-time:15,
+title:"Câu 8: Chọn 2 lý do giúp bạn nhận ra thương hiệu đó.",
+time:10,
 max:2,
 options:["Màu sắc","Logo","Tên thương hiệu","Kiểu biển hiệu","Hình ảnh / biểu tượng"]
 },
@@ -79,8 +79,8 @@ options:["Màu sắc","Logo","Tên thương hiệu","Kiểu biển hiệu","Hìn
 /* ===== CÂU 9 ===== */
 {
 type:"multi",
-title:"Câu 9: Theo bạn thì yếu tố quan trọng nhất giúp bạn nhận diện được thương hiệu đó.",
-time:15,
+title:"Câu 9: Theo bạn thì yếu tố nào quan trọng nhất đã giúp bạn nhận ra thương hiệu đó.",
+time:10,
 max:2,
 options:["Màu sắc nổi bật","Logo dễ nhận biết","Tên thương hiệu dễ đọc","Biển hiệu lớn rõ ràng","Biểu tượng đặc trưng"]
 },
@@ -88,7 +88,7 @@ options:["Màu sắc nổi bật","Logo dễ nhận biết","Tên thương hiệ
 /* ===== CÂU 10 ===== */
 {
 type:"single",
-title:"Câu 10: Trong 18 thương hiệu trên, hương hiệu bạn thấy dễ nhận biết nhất ở 5 giây đầu tiên.",
+title:"Câu 10: Trong 18 hình ảnh thương hiệu đó, hương hiệu nào bạn nhận ra ở 5 giây đầu tiên.",
 time:15,
 max:1,
 options:[
